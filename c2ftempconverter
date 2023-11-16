@@ -1,0 +1,59 @@
+ <!DOCTYPE html>
+<html>
+<head>
+ <title>Celsius to Fahrenheit Converter</title>
+ <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        }
+
+    h1 {
+        font-size: 24px;
+        }
+
+    label {
+        font-size: 18px;
+        }
+
+    input {
+        margin-bottom: 10px;
+        }
+
+    button {
+        margin: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        }
+
+  </style>
+</head>
+<body>
+ <h1>Celsius to Fahrenheit Converter</h1><br>
+ <hr>
+  <label for="celsius">Celsius:</label><br>
+  <input id="celsius" type="number"><br>
+  <label for="fahrenheit">Fahrenheit:</label><br>
+  <input readonly type="number" id="fahrenheit"><br>
+  <button onclick = "convertToF()">Convert</button>
+  <button onclick = "clearValues()">Clear</button><br>
+  <a href="index.html">Back to Homepage</a>
+
+</body>
+
+
+<script>
+    function convertToF(){
+        var tempf, tempc;
+
+        tempc = document.getElementById("celsius").value * 1;
+        tempf = (tempc * 9/5)+32;
+        document.getElementById("fahrenheit").value = tempf;
+    }
+
+    function clearValues(){
+        f = document.getElementById("fahrenheit").value ='';
+        c = document.getElementById("celsius").value ='';
+    }
+</script>
+</html>
