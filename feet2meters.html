@@ -1,0 +1,56 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Feet to Meters Converter</title>
+ <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        }
+
+    h1 {
+        font-size: 24px;
+        }
+
+    label {
+        font-size: 18px;
+        }
+
+    input {
+        margin-bottom: 10px;
+        }
+
+    button {
+        margin: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        }
+ </style>
+</head>
+<body>
+ <h1>Meters to Feet Converter</h1><br>
+ <hr>
+  <label for="feet">Feet:</label><br>
+  <input type="number" id="feet" ><br>
+  <label for="meters">Meters:</label><br>
+  <input type="number" id="meters" ><br>
+  <button onclick="toMeters()">Convert Meters to Feet</button>
+  <button onclick="clearValues()">Clear Values</button>
+
+</body>
+<script>
+    function toMeters(){
+        var meters, feet 
+        
+        meters = document.getElementById("meters").value * 1;
+        feet = document.getElementById("feet").value * 1;
+        meters = feet *0.3048
+        document.getElementById("meters").value = meters;
+    }
+        
+    function clearValues(){
+        meters = document.getElementById("meters").value ='';
+        feet = document.getElementById("feet").value ='';
+
+</script>
+</html>
