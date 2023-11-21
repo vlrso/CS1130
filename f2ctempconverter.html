@@ -35,25 +35,26 @@
   <input type="number" id="fahrenheit"><br>
   <label for="celsius">Celsius:</label><br>
   <input id="celsius" readonly type="number"><br>
-  <button onclick = "convertToF()">Convert</button>
-  <button onclick = "clearValues()">Clear</button><br>
+  <button id = "btnconvertC">Convert</button>
+  <button id = "btnclear">Clear</button><br>
   <a href="index.html">Back to Homepage</a>
 
 </body>
 
 
 <script>
-    function convertToF(){
+    document.getElementById("btnconvertC").addEventListener("click",()=> {
         var tempf, tempc;
 
         tempf = document.getElementById("fahrenheit").value * 1;
         tempc = (tempf -32)*5/9;
         document.getElementById("celsius").value = tempc;
-    }
+    });
 
-    function clearValues(){
+     document.getElementById("btnclear").addEventListener("click", ()=> {
         f = document.getElementById("fahrenheit").value ='';
         c = document.getElementById("celsius").value ='';
-    }
+    });
+
 </script>
 </html>
