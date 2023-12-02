@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Average Of 'N' Numbers</title>
+ <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        }
+
+    span {
+        font-family: 'Arial', sans-serif;
+    }
+
+    h1 {
+        font-size: 24px;
+        text-align: center;
+        }
+
+    label {
+        font-size: 18px;
+        }
+
+    input {
+        margin-bottom: 10px;
+        }
+
+    button {
+        margin: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        }
+ </style>
+</head>
+
+<body>
+ <h1>Average Of N Numbers</h1><br>
+ <hr>
+ <label for="number">Enter a number: </label>
+ <input id="number" type="number">
+ <button id="btnCalcAvg">Calculate Average</button><br>
+ <span id="result">Answer will be displayed here.</span><br>
+ <a href="index.html">Back to Homepage</a>
+
+ <script>
+    document.getElementById("btnCalcAvg").addEventListener("click", ()=>{
+        var n = document.getElementById("number").value;
+        var result = 0;
+        var sum = 0;
+
+        for (var i = 1; i <= n; i++) {
+            sum += i;
+        }
+
+        result = sum / n;
+        document.getElementById("result").innerHTML = "Answer: " + result;
+});
+
+</script>
+</body>
+</html>
