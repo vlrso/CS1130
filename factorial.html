@@ -45,17 +45,16 @@
 </body>
 
 <script>
-    document.getElementById("btnCalcFactorial").addEventListener("click", ()=>{
-        n=document.getElementById("number").value*1;
+    document.getElementById("btnCalcFactorial").addEventListener("click", () => {
+        var n = document.getElementById("number").value * 1;
         var result = 1;
 
-        while(n>0){
+        while (n > 0) {
             result *= n;
             n--;
         }
         document.getElementById("result").innerHTML = "Answer: " + result;
-
-});
-
+    });
+ 
 </script>
 </html>
