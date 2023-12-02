@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Income Tax Calculator</title>
+ <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        }
+
+    h1 {
+        font-size: 24px;
+        }
+
+    label {
+        font-size: 18px;
+        }
+
+    input {
+        margin-bottom: 10px;
+        }
+
+    button {
+        margin: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        }
+ </style>
+</head>
+
+<body>
+ <h1>Income Tax Calculator</h1><br>
+ <hr>
+ <label for="netincome">Enter amount in Pesos:</label><br>
+ <input id="netincome" type="number"><br>
+ <label for="taxable">Taxable Income</label>
+ <input readonly id="taxable" type="number">
+ <label for="incometax">Income Tax</label>
+ <input readonly id="incometax" type="number"><br>
+ <button id="btnIncometax">Calculate Income Tax</button>
+ <button id="clear">Clear Values</button><br>
+ <a href="index.html">Back to Homepage</a>
+</body>
+
+<script>
+    document.getElementById("btnIncometax").addEventListener("click", ()=>{
+        amount = document.getElementById("netincome").value *1; 
+        if (amount <= 250000.00){ //0%
+            document.getElementById("taxable").value = 180000.00;
+            document.getElementById("incometax").value = 0.00 ;
+        } else if (amount > 250000.00 && amount <= 400000.00){ //20%(amount-250k) 
+            document.getElementById("taxable").value = 320000.00;
+            document.getElementById("incometax").value = 0.2*(amount-250000.00); 
+        } else if (amount > 400000.00 && amount <= 800000.00){ //30k+ 35%(amount-400k)
+            document.getElementById("taxable").value = 520000.00; 
+            document.getElementById("incometax").value = 0.25*(amount-40000.00)+320000; 
+        } else if (amount > 800000.00 && amount <= 2000000.00){ //130k+ 30%(amount-800k)
+            document.getElementById("taxable").value = 930000.00; 
+            document.getElementById("incometax").value = 0.3*(amount-800000.00)+1300000; 
+        } else if (amount > 2000000.00 && amount <= 8000000.00){ //490k +32%(amount-2m)
+            document.getElementById("taxable").value = 2400000.00;
+            document.getElementById("incometax").value = 0.32*(amount-2000000.00)+4900000; 
+        } else if (amount > 8000000){ //2.41m +35%(amount-8m)
+            document.getElementById("taxable").value = 10000000.00;
+            document.getElementById("incometax").value = 0.35*(amount-8000000)+2410000; 
+        }
+    });
+
+    document.getElementById("clear").addEventListener("click", ()=>{
+        document.getElementById("taxable").value = '';
+        document.getElementById("netincome").value = '';
+        document.getElementById("incometax").value = '';
+    });
+
+</script> 
+</html>
