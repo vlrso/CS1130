@@ -43,18 +43,26 @@
 
 
 <script>
-    document.getElementById("btnconvertF").addEventListener("click",()=> {
-        var tempf, tempc;
+    document.getElementById("btnconvertF").addEventListener("click", () => {
+    var tempf, tempc;
 
-        tempc = document.getElementById("celsius").value * 1;
-        tempf = (tempc * 9/5)+32;
-        document.getElementById("fahrenheit").value = tempf;
-    });
+    // Validate if the input is a number
+    var inputCelsius = document.getElementById("celsius").value;
+    if (isNaN(inputCelsius)) {
+        alert("Please enter a valid number for Celsius.");
+        return;
+    }
 
-    document.getElementById("btnclear").addEventListener("click", ()=> {
-        f = document.getElementById("fahrenheit").value ='';
-        c = document.getElementById("celsius").value ='';
-    });
+    tempc = inputCelsius * 1;
+    tempf = (tempc * 9 / 5) + 32;
+    document.getElementById("fahrenheit").value = tempf;
+});
+
+
+    document.getElementById("btnclear").addEventListener("click", () => {
+    document.getElementById("fahrenheit").value = '';
+    document.getElementById("celsius").value = '';
+});
 
 </script>
 </html>
