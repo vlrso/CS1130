@@ -46,14 +46,20 @@
     document.getElementById("btnconvertC").addEventListener("click",()=> {
         var tempf, tempc;
 
+        var inputFahrenheit = document.getElementById("fahrenheit").value;
+        if (isNaN(inputFahrenheit)) {
+            alert("Please enter a valid number for Fahrenheit.");
+            return;
+        }
+
         tempf = document.getElementById("fahrenheit").value * 1;
         tempc = (tempf -32)*5/9;
         document.getElementById("celsius").value = tempc;
     });
 
      document.getElementById("btnclear").addEventListener("click", ()=> {
-        f = document.getElementById("fahrenheit").value ='';
-        c = document.getElementById("celsius").value ='';
+        document.getElementById("fahrenheit").value ='';
+        document.getElementById("celsius").value ='';
     });
 
 </script>
