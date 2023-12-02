@@ -44,17 +44,17 @@
 
 <script>
     document.getElementById("btnconvertF").addEventListener("click", () => {
-    var tempf, tempc;
+        var tempf, tempc;
      
-    var inputCelsius = document.getElementById("celsius").value;
-    if (isNaN(inputCelsius)) {
-        alert("Please enter a valid number for Celsius.");
-        return;
-    }
+        var inputCelsius = document.getElementById("celsius").value;
+        if (isNaN(inputCelsius)) {
+            alert("Please enter a valid number for Celsius.");
+            return;
+        }
 
-    tempc = inputCelsius * 1;
-    tempf = (tempc * 9 / 5) + 32;
-    document.getElementById("fahrenheit").value = tempf;
+        tempc = inputCelsius * 1;
+        tempf = (tempc * 9 / 5) + 32;
+        document.getElementById("fahrenheit").value = tempf;
 });
 
 
