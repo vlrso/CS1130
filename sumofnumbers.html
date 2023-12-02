@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sum Of 'N' Numbers</title>
+ <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        }
+
+    span {
+        font-family: 'Arial', sans-serif;
+    }
+
+    h1 {
+        font-size: 24px;
+        text-align: center;
+        }
+
+    label {
+        font-size: 18px;
+        }
+
+    input {
+        margin-bottom: 10px;
+        }
+
+    button {
+        margin: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        }
+ </style>
+</head>
+
+<body>
+ <h1>Sum Of N Numbers</h1><br>
+ <hr>
+ <label for="number">Enter a number: </label>
+ <input id="number" type="number">
+ <button id="btnCalcSum">Calculate Sum</button><br>
+ <span id="result">Answer will be displayed here.</span><br>
+ <a href="index.html">Back to Homepage</a>
+ 
+</body>
+
+<script>
+    document.getElementById("btnCalcSum").addEventListener("click", ()=>{
+        n=document.getElementById("number").value*1;
+        var result = 0;
+
+        do{
+            result += n;
+            n--;
+        }while(n>0)
+        document.getElementById("result").innerHTML = "Answer: " + result;
+});
+
+</script>
+</html> 
