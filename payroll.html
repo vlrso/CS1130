@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payroll System</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Payroll System</h1>
+  
+  <label for="employeeName">Employee Name:</label>
+  <input type="text" id="employeeName"><br><br>
+  
+  <label for="daysWorked">Days Worked:</label>
+  <input type="number" id="daysWorked"><br><br>
+  
+  <label for="dailyRate">Daily Rate:</label>
+  <input type="number" id="dailyRate"><br><br>
+  
+  <label for="deductionAmount">Deduction Amount:</label>
+  <input type="number" id="deductionAmount"><br><br>
+  
+  <button onclick="addEmployee()">Add Employee</button><br><br>
+  
+  <table id="payrollTable">
+    <tr>
+      <th>No.</th>
+      <th>Employee Name</th>
+      <th>Days Worked</th>
+      <th>Daily Rate</th>
+      <th>Gross Pay</th>
+      <th>Deduction Amount</th>
+      <th>Net Pay</th>
+      <th>Action</th>
+    </tr>
+  </table><br>
+  
+  <label for="deleteIndex">Enter Line Number to Delete:</label>
+  <input type="number" id="deleteIndex">
+  <button onclick="deleteEmployee()">Delete</button>
+  
+  <script>
+    let lineCount = 1;
+    
+    function addEmployee() {
+      const employeeName = document.getElementById("employeeName").value;
+      const daysWorked = parseInt(document.getElementById("daysWorked").value);
+      const dailyRate = parseFloat(document.getElementById("dailyRate").value);
+      const deductionAmount = parseFloat(document.getElementById("deductionAmount").value);
+      
+      const grossPay = daysWorked * dailyRate;
+      const netPay = grossPay - deductionAmount;
+      
+      const table = document.getElementById("payrollTable");
+      const newRow = table.insertRow(-1);
+      
+      const cell1 = newRow.insertCell(0);
+      const cell2 = newRow.insertCell(1);
+      const cell3 = newRow.insertCell(2);
+      const cell4 = newRow.insertCell(3);
+      const cell5 = newRow.insertCell(4);
+      const cell6 = newRow.insertCell(5);
+      const cell7 = newRow.insertCell(6);
+      const cell8 = newRow.insertCell(7);
+      
+      cell1.innerHTML = lineCount;
+      cell2.innerHTML = employeeName;
+      cell3.innerHTML = daysWorked;
+      cell4.innerHTML = dailyRate;
+      cell5.innerHTML = grossPay;
+      cell6.innerHTML = deductionAmount;
+      cell7.innerHTML = netPay;
+      cell8.innerHTML = `<button onclick="deleteRow(this)">Delete</button>`;
+      
+      lineCount++;
+    }
+    
+    function deleteEmployee() {
+      const deleteIndex = parseInt(document.getElementById("deleteIndex").value);
+      const table = document.getElementById("payrollTable");
+      
+      if (deleteIndex > 0 && deleteIndex < table.rows.length) {
+        table.deleteRow(deleteIndex);
+        lineCount--;
+        
+        // Update line numbers after deletion
+        for (let i = deleteIndex; i < table.rows.length; i++) {
+          table.rows[i].cells[0].innerHTML = i;
+        }
+      } else {
+        alert("Invalid Line Number to delete");
+      }
+    }
+    
+    function deleteRow(button) {
+      const row = button.parentNode.parentNode;
+      const table = document.getElementById("payrollTable");
+      const index = row.rowIndex;
+      
+      table.deleteRow(index);
+      lineCount--;
+      
+      // Update line numbers after deletion
+      for (let i = index; i < table.rows.length; i++) {
+        table.rows[i].cells[0].innerHTML = i;
+      }
+    }
+  </script>
+</body>
+</html>
