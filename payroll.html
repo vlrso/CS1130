@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Payroll System</title>
-  <style>
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    th, td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-  </style>
+  <title>Simple Payroll</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Payroll System</h1>
+  <h1>Simple Payroll</h1>
+  <button onclick="openDeleteModal()">Delete Employee</button>
+  <button onclick="clearTable()">Clear Table</button>
+  <hr>
   
-  <label for="employeeName">Employee Name:</label>
-  <input type="text" id="employeeName"><br><br>
+  <!-- Modals -->
+  <dialog id="addModal" class="modal">
+    <div class="modal-content">
+      <span onclick="closeAddModal()" style="float: right; cursor: pointer;">&times;</span>
+      <h2>Add Employee</h2>
+      <label for="employeeName">Employee Name:</label>
+      <input type="text" id="employeeNameModal"><br>
+      
+      <label for="daysWorked">Days Worked:</label>
+      <input type="number" class="integer" id="daysWorkedModal"><br>
+      
+      <label for="dailyRate">Daily Rate:</label>
+      <input type="number" class="currency" id="dailyRateModal" step="0.01"><br>
+      
+      <label for="deductionAmount">Deduction Amount:</label>
+      <input type="number" class="currency" id="deductionAmountModal" step="0.01"><br>
+      
+      <button onclick="addEmployeeModal()">Add</button>
+    </div>
+  </dialog>
   
-  <label for="daysWorked">Days Worked:</label>
-  <input type="number" id="daysWorked"><br><br>
-  
-  <label for="dailyRate">Daily Rate:</label>
-  <input type="number" id="dailyRate"><br><br>
-  
-  <label for="deductionAmount">Deduction Amount:</label>
-  <input type="number" id="deductionAmount"><br><br>
-  
-  <button onclick="addEmployee()">Add Employee</button><br><br>
+  <dialog id="deleteModal" class="modal">
+    <div class="modal-content">
+      <span onclick="closeDeleteModal()" style="float: right; cursor: pointer;">&times;</span>
+      <h2>Delete Employee</h2>
+      <p>Enter the Line Number of the employee to delete:</p>
+      <input type="number" id="deleteIndexModal"><br>
+      <button onclick="deleteEmployeeModal()">Delete</button>
+    </div>
+  </dialog>
   
   <table id="payrollTable">
     <tr>
@@ -43,29 +50,55 @@
       <th>Gross Pay</th>
       <th>Deduction Amount</th>
       <th>Net Pay</th>
-      <th>Action</th>
     </tr>
   </table><br>
-  
-  <label for="deleteIndex">Enter Line Number to Delete:</label>
-  <input type="number" id="deleteIndex">
-  <button onclick="deleteEmployee()">Delete</button>
-  
-  <script>
+  <button onclick="openAddModal()">Add Employee</button><br><br>
+  <a href="index.html">Back to Homepage</a>
+<script>
     let lineCount = 1;
-    
-    function addEmployee() {
-      const employeeName = document.getElementById("employeeName").value;
-      const daysWorked = parseInt(document.getElementById("daysWorked").value);
-      const dailyRate = parseFloat(document.getElementById("dailyRate").value);
-      const deductionAmount = parseFloat(document.getElementById("deductionAmount").value);
-      
+
+    function openAddModal() {
+      document.getElementById("addModal").style.display = "block";
+    }
+
+    function closeAddModal() {
+      document.getElementById("addModal").style.display = "none";
+      clearModalFields();
+    }
+
+    function openDeleteModal() {
+      document.getElementById("deleteModal").style.display = "block";
+    }
+
+    function closeDeleteModal() {
+      document.getElementById("deleteModal").style.display = "none";
+      document.getElementById("deleteIndexModal").value = "";
+    }
+
+    function clearModalFields() {
+      document.getElementById("employeeNameModal").value = "";
+      document.getElementById("daysWorkedModal").value = "";
+      document.getElementById("dailyRateModal").value = "";
+      document.getElementById("deductionAmountModal").value = "";
+    }
+
+    function addEmployeeModal() {
+      const employeeName = document.getElementById("employeeNameModal").value;
+      const daysWorked = parseInt(document.getElementById("daysWorkedModal").value);
+      const dailyRate = parseFloat(document.getElementById("dailyRateModal").value);
+      const deductionAmount = parseFloat(document.getElementById("deductionAmountModal").value);
+
+      if (employeeName.trim() === '' || isNaN(daysWorked) || isNaN(dailyRate) || isNaN(deductionAmount)) {
+        alert("Please fill in all fields with valid values.");
+        return;
+      }
+
       const grossPay = daysWorked * dailyRate;
       const netPay = grossPay - deductionAmount;
-      
+
       const table = document.getElementById("payrollTable");
       const newRow = table.insertRow(-1);
-      
+
       const cell1 = newRow.insertCell(0);
       const cell2 = newRow.insertCell(1);
       const cell3 = newRow.insertCell(2);
@@ -73,49 +106,60 @@
       const cell5 = newRow.insertCell(4);
       const cell6 = newRow.insertCell(5);
       const cell7 = newRow.insertCell(6);
-      const cell8 = newRow.insertCell(7);
-      
+
       cell1.innerHTML = lineCount;
       cell2.innerHTML = employeeName;
       cell3.innerHTML = daysWorked;
-      cell4.innerHTML = dailyRate;
-      cell5.innerHTML = grossPay;
-      cell6.innerHTML = deductionAmount;
-      cell7.innerHTML = netPay;
-      cell8.innerHTML = `<button onclick="deleteRow(this)">Delete</button>`;
-      
+      cell4.innerHTML = formatCurrency(dailyRate);
+      cell5.innerHTML = formatCurrency(grossPay);
+      cell6.innerHTML = formatCurrency(deductionAmount);
+      cell7.innerHTML = formatCurrency(netPay);
+
       lineCount++;
+      closeAddModal();
     }
-    
-    function deleteEmployee() {
-      const deleteIndex = parseInt(document.getElementById("deleteIndex").value);
+
+    function formatCurrency(value) {
+        return parseFloat(value).toFixed(2); 
+    }
+
+    function deleteEmployeeModal() {
+      const deleteIndex = parseInt(document.getElementById("deleteIndexModal").value);
+      if (isNaN(deleteIndex) || deleteIndex <= 0 || deleteIndex >= lineCount) {
+        alert("Please enter a valid line number to delete.");
+        return;
+      }
       const table = document.getElementById("payrollTable");
-      
+
       if (deleteIndex > 0 && deleteIndex < table.rows.length) {
         table.deleteRow(deleteIndex);
         lineCount--;
-        
-        // Update line numbers after deletion
+
         for (let i = deleteIndex; i < table.rows.length; i++) {
           table.rows[i].cells[0].innerHTML = i;
         }
+
+        closeDeleteModal();
       } else {
         alert("Invalid Line Number to delete");
       }
     }
-    
-    function deleteRow(button) {
-      const row = button.parentNode.parentNode;
-      const table = document.getElementById("payrollTable");
-      const index = row.rowIndex;
-      
-      table.deleteRow(index);
-      lineCount--;
-      
-      // Update line numbers after deletion
-      for (let i = index; i < table.rows.length; i++) {
-        table.rows[i].cells[0].innerHTML = i;
-      }
+
+    function clearTable() {
+        const table = document.getElementById("payrollTable");
+        const rowCount = table.rows.length;
+
+        if (rowCount > 1) {
+            if (confirm("Are you sure you want to clear the table?")) {
+                for (let i = rowCount - 1; i > 0; i--) {
+                    table.deleteRow(i);
+                }
+          lineCount = 1; 
+            }
+        } else {
+        alert("Table is already empty.");
+        }
+        
     }
   </script>
 </body>
