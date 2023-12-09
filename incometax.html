@@ -1,59 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Income Tax Calculator</title>
-<link rel="stylesheet" href="styles.css">
+  <title>Income Tax Calculator</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
- <h1>Income Tax Calculator</h1><br>
- <hr>
- <label for="netincome">Enter amount in Pesos:</label><br>
- <input id="netincome" type="number"><br>
- <label for="taxable">Taxable Income</label>
- <input readonly id="taxable" type="number">
- <label for="incometax">Income Tax</label>
- <input readonly id="incometax" type="number"><br>
- <button id="btnIncometax">Calculate Income Tax</button>
- <button id="clear">Clear Values</button><br>
- <a href="index.html">Back to Homepage</a>
-</body>
-<script>
- let taxableAmount = 0.0; // Variable to store taxable amount
+  <h1>Income Tax Calculator</h1><br>
+  <hr>
+  <label for="netincome">Enter amount in Pesos:</label><br>
+  <input id="netincome" type="number"><br>
+  <label for="taxable">Taxable Income</label>
+  <input readonly id="taxable" type="number">
+  <label for="incometax">Income Tax</label>
+  <input readonly id="incometax" type="number"><br>
+  <button id="btnIncometax">Calculate Income Tax</button>
+  <button id="clear">Clear Values</button><br>
+  <a href="index.html">Back to Homepage</a>
+  <script>
+    let taxableAmount = 0.0; // Variable to store taxable amount
 
-document.getElementById("btnIncometax").addEventListener("click", () => {
-    let amount = parseFloat(document.getElementById("netincome").value);
+    document.getElementById("btnIncometax").addEventListener("click", () => {
+      let amount = parseFloat(document.getElementById("netincome").value);
 
-    if (amount <= 250000.00) {
+      if (amount <= 250000.00) {
         taxableAmount = amount;
         document.getElementById("taxable").value = taxableAmount.toFixed(2);
         document.getElementById("incometax").value = 0.00;
-    } else if (amount > 250000.00 && amount <= 400000.00) {
+      } else if (amount > 250000.00 && amount <= 400000.00) {
         taxableAmount = 180000.00 + 0.2 * (amount - 250000.00);
         document.getElementById("taxable").value = taxableAmount.toFixed(2);
         document.getElementById("incometax").value = (0.2 * (amount - 250000.00)).toFixed(2);
-    } else if (amount > 400000.00 && amount <= 800000.00) {
+      } else if (amount > 400000.00 && amount <= 800000.00) {
         taxableAmount = 320000.00 + 0.25 * (amount - 400000.00);
         document.getElementById("taxable").value = taxableAmount.toFixed(2);
         document.getElementById("incometax").value = (0.25 * (amount - 400000.00)).toFixed(2);
-    } else if (amount > 800000.00 && amount <= 2000000.00) {
+      } else if (amount > 800000.00 && amount <= 2000000.00) {
         taxableAmount = 520000.00 + 0.3 * (amount - 800000.00);
         document.getElementById("taxable").value = taxableAmount.toFixed(2);
         document.getElementById("incometax").value = (0.3 * (amount - 800000.00)).toFixed(2);
-    } else if (amount > 2000000.00 && amount <= 8000000.00) {
+      } else if (amount > 2000000.00 && amount <= 8000000.00) {
         taxableAmount = 930000.00 + 0.32 * (amount - 2000000.00);
         document.getElementById("taxable").value = taxableAmount.toFixed(2);
         document.getElementById("incometax").value = (0.32 * (amount - 2000000.00)).toFixed(2);
-    } else if (amount > 8000000) {
+      } else if (amount > 8000000) {
         taxableAmount = 2400000.00 + 0.35 * (amount - 8000000.00);
         document.getElementById("taxable").value = taxableAmount.toFixed(2);
         document.getElementById("incometax").value = (0.35 * (amount - 8000000.00)).toFixed(2);
-    }
-});
+      }
+    });
 
-document.getElementById("clear").addEventListener("click", () => {
-    document.getElementById("netincome").value = '';
-    document.getElementById("incometax").value = '';
-});
-</script>
+    document.getElementById("clear").addEventListener("click", () => {
+      document.getElementById("netincome").value = '';
+      document.getElementById("taxable").value = '';
+      document.getElementById("incometax").value = '';
+    });
+  </script>
+</body>
 </html>
