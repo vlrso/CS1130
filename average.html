@@ -11,23 +11,28 @@
  <label for="number">Enter a number: </label>
  <input id="number" type="number">
  <button id="btnCalcAvg">Calculate Average</button><br>
- <span id="result">Answer will be displayed here.</span><br>
+ <h3 id="result"></h3>
+ <p id="nnumbers"></p>
  <a href="index.html">Back to Homepage</a>
 
  <script>
-    document.getElementById("btnCalcAvg").addEventListener("click", ()=>{
-        var n = document.getElementById("number").value;
-        var result = 0;
-        var sum = 0;
+    document.getElementById("btnCalcAvg").addEventListener("click", () => {
+        var n = document.getElementById("number").value * 1;
+        var result = sum = items = 0;
+        var nText = "";
+
+        
 
         for (var i = 1; i <= n; i++) {
             sum += i;
-        }
+            result = sum / i;
+            nText += "(" + i + ") + ";
+            items++;
+        }   nText += ") / " + items;
 
-        result = sum / n;
         document.getElementById("result").innerHTML = "Answer: " + result;
-});
-
+        document.getElementById("nnumbers").innerHTML = "Numbers divided by count: " + nText;
+    });
 </script>
 </body>
 </html>
