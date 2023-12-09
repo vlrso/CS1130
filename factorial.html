@@ -11,22 +11,27 @@
  <label for="number">Enter a number: </label>
  <input id="number" type="number">
  <button id="btnCalcFactorial">Calculate Factorial</button><br>
-  <span id="result">Answer will be displayed here.</span><br>
+  <h3 id="ntitle"></h3>
+  <p id="nnumbers"></p>
  <a href="index.html">Back to Homepage</a>
- 
+
 </body>
 
 <script>
     document.getElementById("btnCalcFactorial").addEventListener("click", () => {
-        var n = document.getElementById("number").value * 1;
+        var nLimit = document.getElementById("number").value * 1;
+        var nText = "";
         var result = 1;
+        var i = 1;
 
-        while (n > 0) {
-            result *= n;
-            n--;
+        while (i <= nLimit) {
+            result *= i;
+            nText += result + " ";
+            i++;
         }
-        document.getElementById("result").innerHTML = "Answer: " + result;
+
+        document.getElementById("ntitle").innerHTML = "Answer: " + result;
+        document.getElementById("nnumbers").innerHTML = "Numbers: " + nText;
     });
- 
 </script>
 </html>
